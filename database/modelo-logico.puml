@@ -1,0 +1,66 @@
+@startuml
+title Modelo Lógico Relacional — controle_estoque
+hide circle
+skinparam linetype ortho
+entity perfil {
+  * id_perfil : TINYINT UNSIGNED <<PK>>
+  --
+  nome : VARCHAR(30) <<UQ>>
+  descricao : VARCHAR(100)
+}
+entity usuario {
+  * id_usuario : BIGINT UNSIGNED <<PK>>
+  --
+  id_perfil : TINYINT UNSIGNED <<FK>>
+  nome : VARCHAR(120)
+  email : VARCHAR(254) <<UQ>>
+  senha_hash : VARCHAR(255)
+  ativo : BOOLEAN
+  criado_em : DATETIME
+}
+entity categoria {
+  * id_categoria : BIGINT UNSIGNED <<PK>>
+  --
+  nome : VARCHAR(80) <<UQ>>
+  descricao : VARCHAR(255)
+  ativo : BOOLEAN
+}
+entity fornecedor {
+  * id_fornecedor : BIGINT UNSIGNED <<PK>>
+  --
+  razao_social : VARCHAR(150)
+  nome_fantasia : VARCHAR(150)
+  cnpj : CHAR(14) <<UQ>>
+  email : VARCHAR(254)
+  telefone : VARCHAR(20)
+  ativo : BOOLEAN
+}
+entity produto {
+  * id_produto : BIGINT UNSIGNED <<PK>>
+  --
+  id_categoria : BIGINT UNSIGNED <<FK>>
+  id_fornecedor : BIGINT UNSIGNED <<FK, opcional>>
+  codigo : VARCHAR(40) <<UQ>>
+  nome : VARCHAR(150)
+  descricao : TEXT
+  preco : DECIMAL(10,2)
+  estoque_minimo : INT UNSIGNED
+  ativo : BOOLEAN
+}
+entity movimentacao {
+  * id_movimentacao : BIGINT UNSIGNED <<PK>>
+  --
+  id_produto : BIGINT UNSIGNED <<FK>>
+  id_usuario : BIGINT UNSIGNED <<FK>>
+  tipo : ENUM('ENTRADA','SAIDA')
+  quantidade : INT UNSIGNED
+  data_hora : DATETIME
+  observacao : VARCHAR(500)
+  criado_em : DATETIME
+}
+perfil ||--o{ usuario
+categoria ||--o{ produto
+fornecedor |o--o{ produto
+produto ||--o{ movimentacao
+usuario ||--o{ movimentacao
+@enduml

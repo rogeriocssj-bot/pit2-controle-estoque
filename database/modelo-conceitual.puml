@@ -1,0 +1,62 @@
+@startuml
+title Modelo Conceitual Entidade-Relacionamento — Controle de Estoque
+hide circle
+entity Perfil {
+  * identificador
+  --
+  nome
+  descricao
+}
+entity Usuario {
+  * identificador
+  --
+  nome
+  email
+  senha_hash
+  ativo
+}
+entity Categoria {
+  * identificador
+  --
+  nome
+  descricao
+  ativo
+}
+entity Fornecedor {
+  * identificador
+  --
+  razao_social
+  cnpj
+  email
+  telefone
+  ativo
+}
+entity Produto {
+  * identificador
+  --
+  codigo
+  nome
+  descricao
+  preco
+  estoque_minimo
+  ativo
+}
+entity Movimentacao {
+  * identificador
+  --
+  tipo
+  quantidade
+  data_hora
+  observacao
+}
+Perfil ||--o{ Usuario : classifica
+Categoria ||--o{ Produto : categoriza
+Fornecedor |o--o{ Produto : fornece
+Produto ||--o{ Movimentacao : movimenta
+Usuario ||--o{ Movimentacao : registra
+note bottom of Movimentacao
+Cada movimentação refere-se a um produto.
+ItemMovimentacao não é necessário no escopo atual.
+O saldo é derivado de entradas menos saídas.
+end note
+@enduml
