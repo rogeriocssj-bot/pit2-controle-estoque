@@ -37,7 +37,9 @@ enum TipoMovimentacao {
   entrada
   saida
 }
-class Categoria <<conceitual>> { +nome: Texto }
+class Categoria <<conceitual>> {
+  +nome: Texto
+}
 class ArmazenamentoLocal <<implementado>> {
   +versao: Inteiro
   +salvar(estado): Booleano

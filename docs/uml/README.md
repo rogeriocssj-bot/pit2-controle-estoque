@@ -32,4 +32,16 @@ Pela linha de comando, quando o PlantUML estiver instalado, use:
 plantuml -tpng docs/uml/casos-de-uso.puml docs/uml/classes.puml docs/uml/atividades.puml docs/uml/sequencia.puml
 ```
 
-Depois, mova os PNGs gerados para `docs/uml/imagens/`. A disponibilidade de Java não valida isoladamente a sintaxe; nesta execução o comando `plantuml` não está instalado, portanto a validação automática dos diagramas permanece pendente.
+Depois, mova os PNGs gerados para `docs/uml/imagens/`. A disponibilidade de Java não valida isoladamente a sintaxe; nesta execução, a validação foi feita temporariamente com o JAR oficial do PlantUML, conforme registrado abaixo.
+
+## Geração realizada nesta etapa
+
+Em 07/11/2026, os quatro diagramas foram validados e renderizados com a distribuição GPL oficial **PlantUML 1.2026.9**, executada temporariamente com Java 17. O JAR foi obtido pela página oficial de downloads do PlantUML e não foi incluído no repositório.
+
+O comando de validação empregado foi:
+
+```powershell
+java -jar plantuml-1.2026.9.jar -checkonly docs/uml/casos-de-uso.puml docs/uml/classes.puml docs/uml/atividades.puml docs/uml/sequencia.puml
+```
+
+Após a validação, os PNGs foram gerados com `-Sdpi=200` e os SVGs com `-tsvg`, ambos usando `-o imagens`. Os arquivos finais encontram-se em `docs/uml/imagens/`. Os quatro PNGs foram abertos para inspeção visual de legibilidade e de limites da imagem.
