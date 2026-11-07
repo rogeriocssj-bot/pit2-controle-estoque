@@ -1,0 +1,24 @@
+@startuml
+title Sequência — Registro de Saída de Estoque
+actor Usuário
+boundary Interface
+control "Lógica JavaScript" as Logica
+database "localStorage\n(demonstração)" as Storage
+Usuário -> Interface : confirma saída(produto, quantidade, data, observação)
+Interface -> Logica : submeterMovimentação(dados)
+Logica -> Logica : validar produto e quantidade
+Logica -> Logica : calcularSaldo(produto, movimentações)
+alt dados inválidos
+  Logica --> Interface : mensagem de erro
+  Interface --> Usuário : exibe validação
+else saldo insuficiente
+  Logica --> Interface : mensagem "saída não pode superar saldo"
+  Interface --> Usuário : exibe erro
+else saída válida
+  Logica -> Logica : incluir movimentação no estado
+  Logica -> Storage : salvar(estado atualizado)
+  Storage --> Logica : sucesso ou falha de armazenamento
+  Logica --> Interface : confirmação da movimentação
+  Interface --> Usuário : atualiza histórico e saldo exibido
+end
+@enduml

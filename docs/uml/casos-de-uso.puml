@@ -1,0 +1,50 @@
+@startuml
+title Casos de Uso — Protótipo de Controle de Estoque
+left to right direction
+skinparam packageStyle rectangle
+actor Gerente
+actor "Funcionário de estoque" as Funcionario
+rectangle "Estoque Fácil (protótipo)" {
+  usecase "Autenticar\n(demonstração)" as UCLogin
+  usecase "Encerrar sessão" as UCLogout
+  usecase "Consultar dashboard" as UCDash
+  usecase "Consultar produtos e estoque" as UCProdutos
+  usecase "Buscar e filtrar produtos" as UCFiltro
+  usecase "Cadastrar produto" as UCCad
+  usecase "Editar produto" as UCEd
+  usecase "Excluir/arquivar produto" as UCExc
+  usecase "Registrar entrada" as UCEntrada
+  usecase "Registrar saída" as UCSaida
+  usecase "Consultar movimentações" as UCHist
+  usecase "Consultar relatórios" as UCRel
+  usecase "Exportar CSV" as UCCsv
+  usecase "Consultar alertas" as UCAlertas
+  usecase "Restaurar demonstração" as UCRest
+}
+Gerente --> UCLogin
+Funcionario --> UCLogin
+Gerente --> UCLogout
+Funcionario --> UCLogout
+Gerente --> UCDash
+Gerente --> UCProdutos
+Funcionario --> UCProdutos
+UCProdutos .> UCFiltro : <<include>>
+Gerente --> UCCad
+Gerente --> UCEd
+Gerente --> UCExc
+Gerente --> UCEntrada
+Funcionario --> UCEntrada
+Gerente --> UCSaida
+Funcionario --> UCSaida
+Gerente --> UCHist
+Funcionario --> UCHist
+Gerente --> UCRel
+UCRel .> UCCsv : <<extend>>
+Gerente --> UCAlertas
+Funcionario --> UCAlertas
+Gerente --> UCRest
+note bottom of Funcionario
+Fornecedor é persona de domínio,
+mas não interage com esta versão.
+end note
+@enduml

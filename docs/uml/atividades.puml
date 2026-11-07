@@ -1,0 +1,26 @@
+@startuml
+title Atividade — Registro de Saída de Produto
+start
+:Acessar tela de movimentações;
+:Selecionar tipo "Saída";
+:Selecionar produto e informar quantidade;
+:Informar data/hora e observação opcional;
+if (Produto ativo selecionado?) then (sim)
+  if (Quantidade é inteira e positiva?) then (sim)
+    :Calcular saldo disponível;
+    if (Quantidade <= saldo?) then (sim)
+      :Criar registro de movimentação;
+      :Atualizar estado local coerente;
+      :Persistir em localStorage;
+      :Exibir confirmação;
+    else (não)
+      :Exibir erro de saldo insuficiente;
+    endif
+  else (não)
+    :Exibir erro de quantidade inválida;
+  endif
+else (não)
+  :Exibir erro de produto inválido;
+endif
+stop
+@enduml

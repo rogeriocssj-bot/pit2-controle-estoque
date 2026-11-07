@@ -1,0 +1,55 @@
+@startuml
+title Modelo Conceitual de Classes — Controle de Estoque
+hide circle
+class Usuario <<demonstrativo>> {
+  +nome: Texto
+  +perfil: Perfil
+  +iniciarSessao(): void
+  +encerrarSessao(): void
+}
+enum Perfil { gerente; funcionario }
+class Produto <<implementado>> {
+  +id: Texto
+  +codigo: Texto
+  +nome: Texto
+  +descricao: Texto
+  +categoria: Texto
+  +preco: Decimal
+  +estoqueMinimo: Inteiro
+  +saldoInicial: Inteiro
+  +ativo: Booleano
+  +calcularSaldo(): Inteiro
+  +validar(): ListaDeErros
+}
+class Movimentacao <<implementado>> {
+  +id: Texto
+  +tipo: TipoMovimentacao
+  +quantidade: Inteiro
+  +dataHora: DataHora
+  +observacao: Texto
+  +usuario: Texto
+  +validarSaldo(): Booleano
+}
+enum TipoMovimentacao { entrada; saida }
+class Categoria <<conceitual>> { +nome: Texto }
+class ArmazenamentoLocal <<implementado>> {
+  +versao: Inteiro
+  +salvar(estado): Booleano
+  +carregar(): Estado
+  +restaurar(): Estado
+}
+Usuario --> Perfil
+Produto "0..*" --> "1" Categoria : pertence a >
+Produto "1" <-- "0..*" Movimentacao : refere-se a >
+Movimentacao --> TipoMovimentacao
+Usuario "0..1" <-- "0..*" Movimentacao : identificado por >
+ArmazenamentoLocal ..> Produto : persiste
+ArmazenamentoLocal ..> Movimentacao : persiste
+note right of Categoria
+No código atual, categoria é texto.
+Classe conceitual para futura modelagem.
+end note
+note bottom of Usuario
+Não representa autenticação real.
+end note
+@enduml
