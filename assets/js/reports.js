@@ -1,0 +1,2 @@
+export function filterMovements(movements, filters){return movements.filter(m=>(!filters.type||m.type===filters.type)&&(!filters.productId||m.productId===filters.productId)&&(!filters.start||m.date.slice(0,10)>=filters.start)&&(!filters.end||m.date.slice(0,10)<=filters.end));}
+export function csv(rows){return '\uFEFF'+rows.map(r=>r.map(v=>`"${String(v??'').replaceAll('"','""')}"`).join(';')).join('\n');}

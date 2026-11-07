@@ -1,0 +1,2 @@
+import {stock} from './products.js';
+export function validateMovement(data,state){const p=state.products.find(x=>x.id===data.productId&&x.active);if(!p)return 'Selecione um produto válido.';if(!Number.isInteger(data.quantity)||data.quantity<=0)return 'A quantidade deve ser um número inteiro positivo.';if(data.type==='saida'&&data.quantity>stock(p,state.movements))return 'A saída não pode superar o saldo disponível.';return null;}
