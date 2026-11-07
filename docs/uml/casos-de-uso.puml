@@ -28,7 +28,8 @@ Funcionario --> UCLogout
 Gerente --> UCDash
 Gerente --> UCProdutos
 Funcionario --> UCProdutos
-UCProdutos .> UCFiltro : <<include>>
+Gerente --> UCFiltro
+Funcionario --> UCFiltro
 Gerente --> UCCad
 Gerente --> UCEd
 Gerente --> UCExc
@@ -39,7 +40,7 @@ Funcionario --> UCSaida
 Gerente --> UCHist
 Funcionario --> UCHist
 Gerente --> UCRel
-UCRel .> UCCsv : <<extend>>
+UCCsv .> UCRel : <<extend>>
 Gerente --> UCAlertas
 Funcionario --> UCAlertas
 Gerente --> UCRest

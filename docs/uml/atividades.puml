@@ -12,7 +12,11 @@ if (Produto ativo selecionado?) then (sim)
       :Criar registro de movimentação;
       :Atualizar estado local coerente;
       :Persistir em localStorage;
-      :Exibir confirmação;
+      if (Persistência concluída?) then (sim)
+        :Exibir confirmação;
+      else (não)
+        :Exibir erro de armazenamento;
+      endif
     else (não)
       :Exibir erro de saldo insuficiente;
     endif

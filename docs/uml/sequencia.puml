@@ -17,8 +17,14 @@ else saldo insuficiente
 else saída válida
   Logica -> Logica : incluir movimentação no estado
   Logica -> Storage : salvar(estado atualizado)
-  Storage --> Logica : sucesso ou falha de armazenamento
-  Logica --> Interface : confirmação da movimentação
-  Interface --> Usuário : atualiza histórico e saldo exibido
+  alt persistência bem-sucedida
+    Storage --> Logica : true
+    Logica --> Interface : confirmação da movimentação
+    Interface --> Usuário : atualiza histórico e saldo exibido
+  else falha de persistência
+    Storage --> Logica : false / erro
+    Logica --> Interface : mensagem de erro de armazenamento
+    Interface --> Usuário : informa que a movimentação não foi confirmada
+  end
 end
 @enduml
